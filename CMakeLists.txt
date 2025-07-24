@@ -7,13 +7,13 @@ file(GLOB_RECURSE MANAGEMENT "ManageSystem/*.cpp")
 project(CMS)
 
 add_executable(${PROJECT_NAME} main.cpp
-    ${COMESTIC}
+    ${COSMETIC}
     ${TRADE}
     ${MANAGEMENT}
 )
 target_include_directories(
     ${PROJECT_NAME} PUBLIC
-    Comestic
+    Cosmetic
     Trade
     ManageSystem)
 
