@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-file(GLOB_RECURSE COMESTIC "Comestic/*.cpp")
+file(GLOB_RECURSE COSMETIC "Cosmetic/*.cpp")
 file(GLOB_RECURSE TRADE "Trade/*.cpp")
 file(GLOB_RECURSE MANAGEMENT "ManageSystem/*.cpp")
 
