@@ -17,8 +17,9 @@ inline bool operator==(const tm &a, const tm &b)
 
 inline istream &operator>>(istream &is, tm &ojb)
 {
-    const char *format = "%y/%m/%d %H:%M:%S";
+    const char *format = "%Y/%m/%d %H:%M:%S";
     ojb = {};
+    is >> ws;
     is >> get_time(&ojb, format);
     mktime(&ojb);
     return is;
@@ -27,7 +28,7 @@ inline istream &operator>>(istream &is, tm &ojb)
 inline ostream &operator<<(ostream &os, const tm &ojb)
 {
     os << setw(2) << setfill('0')
-       << ojb.tm_year << '/' << ojb.tm_mon << '/' << ojb.tm_mday << ' '
-       << ojb.tm_hour << ':' << ojb.tm_min << '/' << ojb.tm_sec;
+       << ojb.tm_year + 1900 << '/' << ojb.tm_mon + 1<< '/' << ojb.tm_mday << ' '
+       << ojb.tm_hour << ':' << ojb.tm_min << ':' << ojb.tm_sec;
     return os;
 }
