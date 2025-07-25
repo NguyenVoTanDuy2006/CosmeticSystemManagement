@@ -46,6 +46,7 @@ inline productInfo::productInfo(const productInfo &other) {
 inline istream &operator>>(istream &is, productInfo &ojb)
 {
     getline(is, ojb.name);
+    if (ojb.name == "null") return is;
     getline(is, ojb.brand);
     int type, unit, price;
     is >> type >> unit >> price;
