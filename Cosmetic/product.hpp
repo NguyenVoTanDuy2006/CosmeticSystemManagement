@@ -17,6 +17,7 @@ private:
 
     static string CreateID();
     static  string CreateID(int number);
+    int reverseID() const;
 public:
     Product();
     Product(int id, const productInfo &info);
@@ -27,10 +28,10 @@ public:
 
     Product &operator=(const Product &other);
     bool operator <= (const Product &other) const;
+    bool operator < (const Product &other) const;
 
     static void setLastIDNumber(int number);
     productInfo& getInfo();
-
 
     friend istream &operator>>(istream &is, Product &ojb);
     friend ostream &operator<<(ostream &os, const Product &ojb);

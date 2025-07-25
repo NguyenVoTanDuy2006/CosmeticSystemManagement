@@ -43,12 +43,21 @@ Product &Product::operator=(const Product &other)
 
 bool Product::operator<=(const Product& other) const
 {
-    for (int i = 0; i < this->ID.size(); i++)
-    {
-        if (this->ID[i] != other.ID[i])
-                return this->ID[i] < other.ID[i];
-    }
-    return true;
+    return this->ID <= other.ID;
+}
+
+bool Product::operator<(const Product& other) const
+{
+    return this->ID < other.ID;
+}
+
+int Product::reverseID() const
+{
+    stringstream IDstream (this->ID);
+    char S, P;
+    IDstream>> S >> P;
+    int number; IDstream>> number;
+    return number;
 }
 
 void Product::setLastIDNumber(int number) {nextID = number;}
