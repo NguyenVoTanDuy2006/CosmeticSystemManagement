@@ -3,7 +3,7 @@
 #include "productInfo.hpp"
 #include "shipment.hpp"
 
-class product
+class Product
 {
 private:
     static int nextID;
@@ -17,21 +17,23 @@ private:
 
     static string CreateID();
     static  string CreateID(int number);
-
 public:
-    product();
-    product(int id, const productInfo &info);
-    product(const string &ID, const productInfo &info);
-    explicit product(const productInfo &info);
-    explicit product(const string& ID);
-    ~product();
+    Product();
+    Product(int id, const productInfo &info);
+    Product(const string &ID, const productInfo &info);
+    explicit Product(const productInfo &info);
+    explicit Product(const string& ID);
+    ~Product();
 
-    product &operator=(const product &other);
+    Product &operator=(const Product &other);
+    bool operator <= (const Product &other) const;
 
     static void setLastIDNumber(int number);
-
     productInfo getInfo();
 
-    friend istream &operator>>(istream &is, product &ojb);
-    friend ostream &operator<<(ostream &os, const product &ojb);
+
+    friend istream &operator>>(istream &is, Product &ojb);
+    friend ostream &operator<<(ostream &os, const Product &ojb);
+
+    friend class productManagement;
 };

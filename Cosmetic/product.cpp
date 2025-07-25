@@ -1,32 +1,32 @@
 #include "product.hpp"
 
-int product::nextID = 1;
+int Product::nextID = 1;
 
-product::product()
+Product::Product()
 {
     ID = "";
     info = productInfo();
     Shipments = {};
 }
 
-product::product(const productInfo &info) : info(info), ID(CreateID()), Shipments({}){}
+Product::Product(const productInfo &info) : info(info), ID(CreateID()), Shipments({}){}
 
-product::product(const string &ID): ID(ID) {}
+Product::Product(const string &ID): ID(ID) {}
 
-product::product(int id, const productInfo &info)
+Product::Product(int id, const productInfo &info)
 {
     this->ID = CreateID(id);
     this->info = info;
 }
 
-product::product(const string &ID, const productInfo &info) : ID(ID), info(info) {}
+Product::Product(const string &ID, const productInfo &info) : ID(ID), info(info) {}
 
-product::~product()
+Product::~Product()
 {
     Shipments.clear();
 }
 
-product &product::operator=(const product &other)
+Product &Product::operator=(const Product &other)
 {
     if (this == &other)
         return *this;
@@ -41,9 +41,19 @@ product &product::operator=(const product &other)
     return *this;
 }
 
-void product::setLastIDNumber(int number) {nextID = number;}
+bool Product::operator<=(const Product& other) const
+{
+    for (int i = 0; i < this->ID.size(); i++)
+    {
+        if (this->ID[i] != other.ID[i])
+                return this->ID[i] < other.ID[i];
+    }
+    return true;
+}
 
-productInfo product::getInfo()
+void Product::setLastIDNumber(int number) {nextID = number;}
+
+productInfo Product::getInfo()
 {
     return this->info;
 }

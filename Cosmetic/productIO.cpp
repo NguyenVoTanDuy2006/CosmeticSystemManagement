@@ -1,6 +1,6 @@
 #include "product.hpp"
 
-istream &operator>>(istream &is, product &ojb) {
+istream &operator>>(istream &is, Product &ojb) {
     is >> ojb.info;
     LotInfo temp;
 
@@ -12,7 +12,7 @@ istream &operator>>(istream &is, product &ojb) {
     return is;
 }
 
-ostream &operator<<(ostream &os, const product &ojb) {
+ostream &operator<<(ostream &os, const Product &ojb) {
     if (ojb.ID == "")
         return (os << "null", os);
 

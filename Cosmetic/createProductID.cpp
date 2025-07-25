@@ -1,12 +1,13 @@
 #include "product.hpp"
 
-string product::CreateID(int number)
+string Product::CreateID(int number)
 {
     stringstream IDstream;
     IDstream << "SP" << setw(5) << setfill('0') << number;
     return IDstream.str();
 }
-string product::CreateID()
+
+string Product::CreateID()
 {
     stringstream IDstream;
     IDstream << "SP" << setw(5) << setfill('0') << nextID;
