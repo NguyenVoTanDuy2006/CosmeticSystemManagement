@@ -29,7 +29,7 @@ inline istream &operator>>(istream &is, LotInfo &ojb)
 {
     ojb.NSX = {};
     ojb.HSD = {};
-    is >> ojb.NSX.tm_year >> ojb.NSX.tm_mon >> ojb.HSD.tm_year >> ojb.HSD.tm_mon >> ojb.quantity;
+    is >> ojb.NSX >> ojb.HSD >>ojb.quantity;
     return is;
 }
 
