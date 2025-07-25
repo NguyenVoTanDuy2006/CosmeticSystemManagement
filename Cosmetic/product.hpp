@@ -29,7 +29,7 @@ public:
     bool operator <= (const Product &other) const;
 
     static void setLastIDNumber(int number);
-    productInfo getInfo();
+    productInfo& getInfo();
 
 
     friend istream &operator>>(istream &is, Product &ojb);

@@ -53,7 +53,7 @@ bool Product::operator<=(const Product& other) const
 
 void Product::setLastIDNumber(int number) {nextID = number;}
 
-productInfo Product::getInfo()
+productInfo& Product::getInfo()
 {
     return this->info;
 }
