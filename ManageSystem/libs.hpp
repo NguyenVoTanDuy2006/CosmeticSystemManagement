@@ -1,13 +1,13 @@
 #pragma once
 
 #include <iostream>
+#include <cstdio>
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <ctime>
 #include <iomanip>
-#include <variant>
 
 using namespace std;
