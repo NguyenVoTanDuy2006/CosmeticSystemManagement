@@ -9,6 +9,13 @@ inline bool operator<(const tm &a, const tm &b)
     return tie(a.tm_year, a.tm_mon, a.tm_mday, a.tm_hour, a.tm_min, a.tm_sec) <
            tie(b.tm_year, b.tm_mon, b.tm_mday, b.tm_hour, b.tm_min, b.tm_sec);
 }
+
+inline bool operator <= (const tm &a, const tm &b)
+{
+    return tie(a.tm_year, a.tm_mon, a.tm_mday, a.tm_hour, a.tm_min, a.tm_sec) <=
+           tie(b.tm_year, b.tm_mon, b.tm_mday, b.tm_hour, b.tm_min, b.tm_sec);
+}
+
 inline bool operator==(const tm &a, const tm &b)
 {
     return tie(a.tm_year, a.tm_mon, a.tm_mday, a.tm_hour, a.tm_min, a.tm_sec) ==
@@ -17,10 +24,10 @@ inline bool operator==(const tm &a, const tm &b)
 
 inline istream &operator>>(istream &is, tm &ojb)
 {
-    const char *format = "%Y/%m/%d %H:%M:%S";
+    const auto format = "%Y/%m/%d %H:%M:%S";
     ojb = {};
-    is >> ws;
     is >> get_time(&ojb, format);
+    is >> ws;
     mktime(&ojb);
     return is;
 }
