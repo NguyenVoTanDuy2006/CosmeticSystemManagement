@@ -1,33 +1,25 @@
 #include "trade.h"
 
-Trade::Trade()
-{
+Trade::Trade() {
     ID = "";
     productID = "";
-    tradeTime = {};
+    // tradeTime mặc định là null
     quantity = -1;
 }
 
-Trade::Trade(const string& ID): ID(ID)
-{
-}
+Trade::Trade(const QString& ID): ID(ID) {}
 
-Trade::Trade(const string& productID, int quantity): productID(productID), quantity(quantity)
-{
+Trade::Trade(const QString& productID, int quantity): productID(productID), quantity(quantity) {
     tradeTime = getCurrentTime();
 }
 
-Trade::Trade(const tm& time, const string& productID, const int quantity):
-    productID(productID), tradeTime(time), quantity(quantity)
-{
-}
+Trade::Trade(const QDateTime& time, const QString& productID, const int quantity):
+    productID(productID), tradeTime(time), quantity(quantity) {}
 
-bool Trade::operator<(const Trade& other) const
-{
+bool Trade::operator<(const Trade& other) const {
     return this->tradeTime < other.tradeTime;
 }
 
-bool Trade::operator<=(const Trade& other) const
-{
+bool Trade::operator<=(const Trade& other) const {
     return this->tradeTime <= other.tradeTime;
 }

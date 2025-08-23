@@ -1,13 +1,19 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
+// #include <iostream>
+// #include <fstream>
+// #include <sstream>
+
 #include <algorithm>
 #include <vector>
-#include <string>
-#include <ctime>
-#include <iomanip>
 #include <memory>
+#include <utility>
+#include <QString>
+#include <QVector>
+#include <QDebug>
+#include <QFile>
+#include <QTextStream>
+#include <QDateTime>
+#include <QDir>
 
-using namespace std;
+// using namespace std;

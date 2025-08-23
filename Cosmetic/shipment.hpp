@@ -1,40 +1,36 @@
 #pragma once
-
 #include "libs.hpp"
-#include "time.hpp"
 
-struct LotInfo // so lo
+struct LotInfo
 {
-    string id;
-    tm NSX, HSD;
+    QString id;
+    QDateTime NSX, HSD;
     int quantity;
-    LotInfo() : id(""), NSX(), HSD(), quantity(-1) {}
-    LotInfo(const tm &NSX, const tm &HSD, const int &quantity) : NSX(NSX), HSD(HSD), quantity(quantity) { id = CreateLotID(); }
+    LotInfo() : id(""), quantity(-1) {}
+    LotInfo(const QDateTime &NSX, const QDateTime &HSD, const int &quantity) : NSX(NSX), HSD(HSD), quantity(quantity) { id = CreateLotID(); }
 
-    bool operator<(const LotInfo &a) const
-    {
+    bool operator<(const LotInfo &a) const {
         return HSD < a.HSD;
     }
-    string CreateLotID()
-    {
-        stringstream ID;
-        ID << setw(2) << setfill('0')
-           << NSX.tm_mday << NSX.tm_mon << NSX.tm_year
-           << HSD.tm_mday << HSD.tm_mon << HSD.tm_year;
-        return ID.str();
+    QString CreateLotID() {
+        return NSX.toString("ddMMyyyy") + HSD.toString("ddMMyyyy");
     }
 };
 
-inline istream &operator>>(istream &is, LotInfo &ojb)
+inline QTextStream &operator>>(QTextStream &is, LotInfo &obj)
 {
-    ojb.NSX = {};
-    ojb.HSD = {};
-    is >> ojb.NSX >> ojb.HSD >>ojb.quantity;
+    QString nsx_str, hsd_str;
+    is >> nsx_str >> hsd_str >> obj.quantity;
+    obj.NSX = QDateTime::fromString(nsx_str, "yyyy/MM/dd");
+    obj.HSD = QDateTime::fromString(hsd_str, "yyyy/MM/dd");
+    is.skipWhiteSpace();
     return is;
 }
 
-inline ostream &operator<<(ostream &os, const LotInfo &ojb)
+inline QTextStream &operator<<(QTextStream &os, const LotInfo &obj)
 {
-    os << ojb.NSX << " " << ojb.HSD << " " << ojb.quantity;
+    os << obj.NSX.toString("yyyy/MM/dd") << " "
+       << obj.HSD.toString("yyyy/MM/dd") << " "
+       << obj.quantity;
     return os;
 }

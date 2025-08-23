@@ -1,34 +1,26 @@
-//
-// Created by nguye on 7/28/2025.
-//
-
 #include "TradeOut.h"
 
+TradeOut::TradeOut(const QString& ID): Trade(ID), revenue(-1){}
 
-TradeOut::TradeOut(const string& ID): Trade(ID), revenue(-1){}
-
-TradeOut::TradeOut(const string& productID, const Client& client, const int quantity, const int revenue):
-    Trade(productID, quantity), client(client), revenue(revenue)
-{
+TradeOut::TradeOut(const QString& productID, const Client& client, const int quantity, const int revenue):
+    Trade(productID, quantity), client(client), revenue(revenue) {
     this->ID = createID(static_cast<int>(IO_TYPE::OUT));
 }
 
-TradeOut::TradeOut(const string& productID, const Client& client, const int quantity, const tm& time,
-                   const int revenue): Trade(time, productID, quantity), client(client), revenue(revenue)
-{
+TradeOut::TradeOut(const QString& productID, const Client& client, const int quantity, const QDateTime& time,
+                   const int revenue): Trade(time, productID, quantity), client(client), revenue(revenue) {
     this->ID = createID(static_cast<int>(IO_TYPE::OUT));
 }
 
-void TradeOut::readData(istream& is)
-{
-    Trade::readData(is);
-    is >> revenue >> ws;
+void TradeOut::readData(QTextStream& is) {
+    Trade::readData(is); // Gọi hàm của lớp cha
+    is >> revenue;
+    is.skipWhiteSpace();
     is >> client;
 }
 
-void TradeOut::writeData(ostream& os)
-{
-    Trade::writeData(os);
-    os << client << endl;
-    os << revenue;
+void TradeOut::writeData(QTextStream& os) {
+    Trade::writeData(os); // Gọi hàm của lớp cha
+    os << revenue << '\n';
+    os << client << '\n';
 }

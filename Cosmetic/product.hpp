@@ -7,23 +7,24 @@ class Product
 {
 private:
     static int nextID;
-    string ID;
+    QString ID;
     productInfo info;
+    std::vector<LotInfo> Shipments;
 
-    vector<LotInfo> Shipments;
     void addShipment(const LotInfo &lot);
     void removeShipment(LotInfo &lot);
-    LotInfo &findShipment(const tm &date);
+    LotInfo &findShipment(const QDateTime &date);
 
-    static string CreateID();
-    static  string CreateID(int number);
-    int reverseID() const;
+    static QString CreateID();
+    static QString CreateID(int number);
+
 public:
+    int reverseID() const; // Chuyển sang public để readData có thể truy cập
     Product();
     Product(int id, const productInfo &info);
-    Product(const string &ID, const productInfo &info);
+    Product(const QString &ID, const productInfo &info);
     explicit Product(const productInfo &info);
-    explicit Product(const string& ID);
+    explicit Product(const QString& ID);
     ~Product();
 
     Product &operator=(const Product &other);
@@ -31,10 +32,10 @@ public:
     bool operator < (const Product &other) const;
 
     static void setLastIDNumber(int number);
-    productInfo& getInfo();
+    productInfo getInfo() const;
 
-    friend istream &operator>>(istream &is, Product &ojb);
-    friend ostream &operator<<(ostream &os, const Product &ojb);
+    friend QTextStream &operator>>(QTextStream &is, Product &obj);
+    friend QTextStream &operator<<(QTextStream &os, const Product &obj);
 
-    friend class productManagement;
+    friend class productManager;
 };

@@ -3,7 +3,7 @@
 class ManagementSystem
 {
 private:
-    // productManagement pM;
+    // productManager pM;
     // tradeManegement tM;
 
 };

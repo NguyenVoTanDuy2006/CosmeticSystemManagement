@@ -1,7 +1,3 @@
-//
-// Created by nguye on 7/29/2025.
-//
-
 #ifndef TRADEFACTORY_H
 #define TRADEFACTORY_H
 
@@ -12,18 +8,14 @@
 class TradeFactory
 {
 public:
-    static shared_ptr<Trade> getTrade(string ID)
-    {
-        int type = ID.back() - '0';
-        switch (static_cast<IO_TYPE>(type))
-        {
-        case IO_TYPE::IN:
-            return make_shared<TradeIn>(ID);
-        case IO_TYPE::OUT:
-            return make_shared<TradeOut>(ID);
-        default:
-            return nullptr;
+    // ID có dạng yyyyMMddhhmmss_SPxxxxx_T, T là type
+    static std::shared_ptr<Trade> getTrade(const QString& ID) {
+        if (ID.endsWith("_0")) {
+             return std::make_shared<TradeIn>(ID);
+        } else if (ID.endsWith("_1")) {
+            return std::make_shared<TradeOut>(ID);
         }
+        return nullptr;
     }
 };
 

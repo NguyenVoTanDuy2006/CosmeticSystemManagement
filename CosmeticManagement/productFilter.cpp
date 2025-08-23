@@ -1,24 +1,19 @@
-#include  "product management.h"
+#include "product manager.h"
 
-vector<Product> productManagement::filterByBrand(const string& brand) const
-{
-    vector<Product> ret = {};
-    for (auto product : products){
-        if (product.info.brand == brand)
-        {
+std::vector<Product> productManager::filterByBrand(const QString& brand) const {
+    std::vector<Product> ret;
+    for (const auto& product : products) {
+        if (product.getInfo().brand == brand) {
             ret.push_back(product);
         }
     }
     return ret;
 }
 
-vector<Product> productManagement::filterByType(const TYPE type) const
-{
-    vector<Product> ret = {};
-    for (auto product : products)
-    {
-        if (product.info.type == type)
-        {
+std::vector<Product> productManager::filterByType(const TYPE type) const {
+    std::vector<Product> ret;
+    for (const auto& product : products) {
+        if (product.getInfo().type == type) {
             ret.push_back(product);
         }
     }

@@ -1,21 +1,30 @@
 #include "product.hpp"
 
-istream& operator>>(istream& is, Product& ojb)
-{
+QTextStream& operator>>(QTextStream& is, Product& ojb) {
     is >> ojb.info;
-    LotInfo temp;
-    while (is >> temp)
+    if (ojb.info.name == "null") return is;
+
+    ojb.Shipments.clear();
+    while (!is.atEnd()) {
+        QString line = is.readLine();
+        if (line.trimmed().isEmpty()) break;
+        QTextStream lineStream(&line, QIODevice::ReadOnly);
+        LotInfo temp;
+        lineStream >> temp;
         ojb.Shipments.push_back(temp);
-    if (ojb.ID == "") ojb.ID = ojb.CreateID();
+    }
+
+    if (ojb.ID.isEmpty()) ojb.ID = Product::CreateID();
     return is;
 }
 
-ostream& operator<<(ostream& os, const Product& ojb)
-{
-    if (ojb.ID == "")
-        return (os << "null", os);
-    os << ojb.info << '\n';
-    for (auto shipment : ojb.Shipments)
+QTextStream& operator<<(QTextStream& os, const Product& ojb) {
+    if (ojb.ID.isEmpty()) {
+        os << "null";
+        return os;
+    }
+    os << ojb.info;
+    for (const auto& shipment : ojb.Shipments)
         os << shipment << '\n';
     return os;
 }

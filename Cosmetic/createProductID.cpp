@@ -1,16 +1,11 @@
 #include "product.hpp"
 
-string Product::CreateID(int number)
-{
-    stringstream IDstream;
-    IDstream << "SP" << setw(5) << setfill('0') << number;
-    return IDstream.str();
+QString Product::CreateID(int number) {
+    return QString("SP%1").arg(number, 5, 10, QChar('0'));
 }
 
-string Product::CreateID()
-{
-    stringstream IDstream;
-    IDstream << "SP" << setw(5) << setfill('0') << nextID;
+QString Product::CreateID() {
+    QString newID = QString("SP%1").arg(nextID, 5, 10, QChar('0'));
     nextID++;
-    return IDstream.str();
+    return newID;
 }

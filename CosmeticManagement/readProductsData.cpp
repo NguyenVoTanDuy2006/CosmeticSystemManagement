@@ -1,20 +1,32 @@
-    #include "product management.h"
+#include "product manager.h"
 
-bool productManagement::readData()
-{
-    auto productsList = ifstream(getPath("ListProducts"));
-    if (productsList.is_open() == false) { return false; }
-    string ID;
-    while (getline(productsList, ID) && ID != "null")
-    {
-        Product temp(ID);
-        auto productData = ifstream(getPath(ID));
-        if (!productData.is_open()) { return false; }
-        productData >> temp;
-        products.push_back(temp);
-        productData.close();
+bool productManager::readData() {
+    QFile productsListFile(getPath("ListProducts"));
+    if (!productsListFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qWarning() << "Could not open ListProducts for reading.";
+        return false;
     }
-    Product::nextID = products.back().reverseID();
-    productsList.close();
+    QTextStream in(&productsListFile);
+    products.clear();
+    products.emplace_back(); // Add dummy product back
+
+    QString ID;
+    while (in.readLineInto(&ID) && !ID.trimmed().isEmpty()) {
+        Product temp(ID);
+        QFile productDataFile(getPath(ID));
+        if (!productDataFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            qWarning() << "Could not open product data file:" << getPath(ID);
+            continue;
+        }
+        QTextStream productDataStream(&productDataFile);
+        productDataStream >> temp;
+        products.push_back(temp);
+        productDataFile.close();
+    }
+    productsListFile.close();
+
+    if (products.size() > 1) { // More than just the dummy
+        Product::setLastIDNumber(products.back().reverseID() + 1);
+    }
     return true;
 }

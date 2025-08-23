@@ -1,7 +1,3 @@
-//
-// Created by nguye on 7/28/2025.
-//
-
 #ifndef TRADEIN_H
 #define TRADEIN_H
 
@@ -10,22 +6,20 @@
 class TradeIn : public Trade
 {
 private:
-    string LotID;
+    QString LotID;
     int capital = 0;
 public:
     ~TradeIn() override = default;
 
     TradeIn();
-    explicit TradeIn(const string& ID);
-    TradeIn(const string& productID, const string& LotID, int quantity, int capital);
-    TradeIn(const string& productID, const string& LotID, int quantity, int capital, const tm& time);
+    explicit TradeIn(const QString& ID);
+    TradeIn(const QString& productID, const QString& LotID, int quantity, int capital);
+    TradeIn(const QString& productID, const QString& LotID, int quantity, int capital, const QDateTime& time);
 
-    // data handling
-    void readData(istream& is) override;
-    void writeData(ostream& os) override;
+    void readData(QTextStream& is) override;
+    void writeData(QTextStream& os) override;
 
-    friend class TradeManagement;
+    friend class TradeManager;
 };
-
 
 #endif //TRADEIN_H

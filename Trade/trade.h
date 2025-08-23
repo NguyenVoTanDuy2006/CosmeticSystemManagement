@@ -1,6 +1,5 @@
 #pragma once
-
-#include "time.hpp"
+#include "libs.hpp"
 
 enum class IO_TYPE: int
 {
@@ -11,26 +10,28 @@ enum class IO_TYPE: int
 class Trade
 {
 protected:
-    string ID;
-    string productID;
-    tm tradeTime;
+    QString ID;
+    QString productID;
+    QDateTime tradeTime;
     int quantity;
 
-    string createID(int type) const;
-    static tm getCurrentTime();
+    QString createID(int type) const;
+    static QDateTime getCurrentTime();
 
 public:
     virtual ~Trade() = default;
     Trade();
-    explicit Trade(const string& ID);
-    Trade(const string& productID, int quantity);
-    Trade(const tm& time, const string& productID, int quantity);
+    explicit Trade(const QString& ID);
+    Trade(const QString& productID, int quantity);
+    Trade(const QDateTime& time, const QString& productID, int quantity);
 
-    bool operator <(const Trade& other) const;
-    bool operator <=(const Trade& other) const;
+    QString getID() const { return ID; }
 
-    virtual void readData(istream& is) = 0;
-    virtual void writeData(ostream& os) = 0;
+    bool operator<(const Trade& other) const;
+    bool operator<=(const Trade& other) const;
 
-    friend class TradeManagement;
+    virtual void readData(QTextStream& is) = 0;
+    virtual void writeData(QTextStream& os) = 0;
+
+    friend class TradeManager;
 };

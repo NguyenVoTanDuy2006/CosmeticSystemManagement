@@ -1,35 +1,27 @@
-#include "TradeManagement.h"
+#include "TradeManager.h"
 
-void TradeManagement::addTrade(const string& productID, const LotInfo& shipment, int capital)
-{
-    trades.push_back(make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital));
+void TradeManager::addTrade(const QString& productID, const LotInfo& shipment, int capital) {
+    trades.push_back(std::make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital));
 }
 
-void TradeManagement::addTrade(const string& productID, int quantity, int revenue, const Client& client)
-{
-    trades.push_back(make_shared<TradeOut>(productID, client, quantity, revenue));
+void TradeManager::addTrade(const QString& productID, int quantity, int revenue, const Client& client) {
+    trades.push_back(std::make_shared<TradeOut>(productID, client, quantity, revenue));
 }
 
-bool TradeManagement::deleteTrade(const string& ID)
-{
-    for (auto& trade: trades)
-    {
-        if (trade->ID == ID)
-        {
-            swap(trade, trades.back());
-            trades.pop_back();
-            sort(trades.begin(), trades.end());
-            return true;
-        }
+bool TradeManager::deleteTrade(const QString& ID) {
+    auto it = std::remove_if(trades.begin(), trades.end(),
+        [&](const std::shared_ptr<Trade>& trade){ return trade->ID == ID; });
+
+    if (it != trades.end()) {
+        trades.erase(it, trades.end());
+        return true;
     }
     return false;
 }
 
-shared_ptr<Trade> TradeManagement::findTrade(const string& ID)
-{
-    for (auto& trade: trades)
-    {
-        if (trade->ID == ID){return trade;}
+std::shared_ptr<Trade> TradeManager::findTrade(const QString& ID) {
+    for (const auto& trade: trades) {
+        if (trade->ID == ID){ return trade; }
     }
     return nullptr;
 }

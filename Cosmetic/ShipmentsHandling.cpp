@@ -1,33 +1,26 @@
 #include "product.hpp"
 
-void Product::addShipment(const LotInfo &lot)
-{
+void Product::addShipment(const LotInfo &lot) {
     Shipments.push_back(lot);
-    sort(Shipments.begin(), Shipments.end());
+    std::sort(Shipments.begin(), Shipments.end());
 }
 
-void Product::removeShipment(LotInfo &lot)
-{
-    swap(lot, Shipments.back());
-    Shipments.pop_back();
-    sort(Shipments.begin(), Shipments.end());
+void Product::removeShipment(LotInfo &lot) {
+    auto it = std::find_if(Shipments.begin(), Shipments.end(),
+        [&](const LotInfo& item) { return item.id == lot.id; });
+
+    if (it != Shipments.end()) {
+        Shipments.erase(it);
+    }
 }
 
-LotInfo &Product::findShipment(const tm &date)
-{
-    // int l = 0, r = Shipments.size() - 1, mid;
-    // while(l <= r)
-    // {
-    //     mid = (l + r) / 2;
-    //     if(Shipments[mid].HSD  == date)
-    //         return Shipments[mid];
-    //     if(Shipments[mid].HSD < date) l = mid + 1;
-    //     else r = mid - 1;
-    // }
-    for (auto &Shipment : Shipments)
-    {
-        if (Shipment.HSD == date)
+LotInfo &Product::findShipment(const QDateTime &date) {
+    for (auto &Shipment : Shipments) {
+        if (Shipment.HSD.date() == date.date())
             return Shipment;
     }
-    return Shipments[0];
+    if (Shipments.empty()) {
+        throw std::runtime_error("Cannot find shipment in an empty list.");
+    }
+    return Shipments.front();
 }
