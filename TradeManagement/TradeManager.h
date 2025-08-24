@@ -3,6 +3,7 @@
 
 #include "shipment.hpp"
 #include "TradeFactory.h"
+#include "TradeFilterConditions.h"
 
 class TradeManager {
 private:
@@ -16,9 +17,12 @@ public:
     void addTrade(const QString& productID, int quantity, int revenue, const Client& client);
     bool deleteTrade(const QString& ID);
     std::shared_ptr<Trade> findTrade(const QString& ID);
+    std::vector<std::shared_ptr<Trade>> getTradesFromTo(const QDateTime& from, const QDateTime& to) const;
 
     int getTradeCount() const { return trades.size(); }
-    const std::vector<std::shared_ptr<Trade>>& getAllTrades() const { return trades; }
+
+    //filter;
+    std::vector<std::shared_ptr<Trade>> getFilterTrades(const std::vector<std::shared_ptr<baseTradeFilterCondition>>& conditions) const;
 
     bool readData();
     bool writeData() const;

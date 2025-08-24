@@ -25,3 +25,20 @@ std::shared_ptr<Trade> TradeManager::findTrade(const QString& ID) {
     }
     return nullptr;
 }
+
+std::vector<std::shared_ptr<Trade>> TradeManager::getFilterTrades(
+    const std::vector<std::shared_ptr<baseTradeFilterCondition>>& conditions) const
+{
+    std::vector<std::shared_ptr<Trade>> filterTrades;
+    bool flag;
+    for (const auto& trade: trades)
+    {
+        flag = true;
+        for (auto condition: conditions)
+        {
+            flag = (flag && condition->check(trade));
+        }
+        if (flag) { filterTrades.push_back(trade); }
+    }
+    return filterTrades;
+}

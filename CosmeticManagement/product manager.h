@@ -14,7 +14,7 @@ public:
 
     void addProduct(const productInfo& info);
     void removeProduct(const QString& ID);
-    Product& findProduct(const QString& ID);
+    Product& findProduct(const QString& name);
 
     std::vector<Product> filterByBrand(const QString& brand) const;
     std::vector<Product> filterByType(TYPE type) const;

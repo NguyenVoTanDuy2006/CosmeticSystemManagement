@@ -13,9 +13,9 @@ void productManager::removeProduct(const QString& productID) {
     }
 }
 
-Product& productManager::findProduct(const QString& ID) {
+Product& productManager::findProduct(const QString& name) {
     for (auto& product : products) {
-        if (product.getInfo().name == ID) return product; // Assuming ID is the product name for now
+        if (product.getInfo().name == name) return product;
     }
     return products[0]; // dummy product
 }

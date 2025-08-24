@@ -26,7 +26,7 @@ public:
     Trade(const QDateTime& time, const QString& productID, int quantity);
 
     QString getID() const { return ID; }
-
+    QDateTime getTradeTime() const { return tradeTime; }
     bool operator<(const Trade& other) const;
     bool operator<=(const Trade& other) const;
 
