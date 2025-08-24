@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Resources/hide.png</file>
+        <file>Resources/show.png</file>
+        <file>Resources/setting.png</file>
+        <file>Resources/questionMark.png</file>
+    </qresource>
+</RCC>
