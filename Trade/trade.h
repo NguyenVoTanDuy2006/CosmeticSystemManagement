@@ -29,6 +29,8 @@ public:
     QDateTime getTradeTime() const { return tradeTime; }
     bool operator<(const Trade& other) const;
     bool operator<=(const Trade& other) const;
+    const QString& getProductID() const { return productID; }
+    int   getQuantity()  const { return quantity;  }
 
     virtual void readData(QTextStream& is) = 0;
     virtual void writeData(QTextStream& os) = 0;

@@ -15,7 +15,8 @@ public:
     explicit TradeOut(const QString& ID);
     TradeOut(const QString& productID, const Client& client, int quantity, int revenue);
     TradeOut(const QString& productID, const Client& client, int quantity, const QDateTime& time, int revenue);
-    
+    const Client&  getClient()  const { return client;  }
+    int   getRevenue() const { return revenue; }  
     void readData(QTextStream& is) override;
     void writeData(QTextStream& os) override;
 

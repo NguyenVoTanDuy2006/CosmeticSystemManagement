@@ -15,7 +15,8 @@ public:
     explicit TradeIn(const QString& ID);
     TradeIn(const QString& productID, const QString& LotID, int quantity, int capital);
     TradeIn(const QString& productID, const QString& LotID, int quantity, int capital, const QDateTime& time);
-
+    const QString& getLotID()  const { return LotID;  }
+    int   getCapital() const { return capital; }
     void readData(QTextStream& is) override;
     void writeData(QTextStream& os) override;
 
