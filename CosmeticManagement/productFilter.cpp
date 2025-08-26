@@ -1,4 +1,4 @@
-#include "product manager.h"
+#include "productManager.h"
 
 std::vector<Product> productManager::getFilter(std::vector<std::shared_ptr<baseProductFilter>> conditions) const
 {

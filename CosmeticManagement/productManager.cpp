@@ -1,10 +1,11 @@
 #include "productManager.h"
 
 QString productManager::getPath(const QString& name) {
-    QDir dataPath("Data/ProductData");
+    QString basePath = QDir::currentPath() + "Data/ProductData/";
+    QDir dataPath(basePath);
     if (!dataPath.exists())
         dataPath.mkpath(".");
-    return "Data/ProductData/" + name + ".txt";
+    return basePath + name + ".sp";
 }
 
 productManager::productManager() {

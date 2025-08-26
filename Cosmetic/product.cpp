@@ -1,5 +1,7 @@
 #include "product.hpp"
 
+#include <qtestsupport_core.h>
+
 int Product::nextID = 1;
 
 Product::Product() {
@@ -8,9 +10,20 @@ Product::Product() {
     Shipments = {};
 }
 
+Product::Product(const QString &ID): ID(ID), picture(getPicturePath(ID)) {}
+
 Product::Product(const productInfo &info) : info(info), ID(CreateID()), Shipments({}){}
 
-Product::Product(const QString &ID): ID(ID) {}
+Product::Product(const productInfo& info, const QString& pictureSourcePath): Product(info)
+{
+    const QString desPath = getPicturePath(this->ID);
+    QImage image(pictureSourcePath);
+    if (!image.isNull())
+    {
+        image.save(desPath, "JPG", -1);
+    }
+    picture = desPath;
+}
 
 Product::Product(int id, const productInfo &info) {
     this->ID = CreateID(id);
@@ -59,6 +72,11 @@ productInfo Product::getInfo() const{
 }
 
 const QString& Product::getID() const { return ID; }
+
+const QString& Product::getPicturePath() const
+{
+    return this->picture;
+}
 
 int Product::getStock() const {
     int total = 0;

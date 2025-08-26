@@ -1,12 +1,13 @@
 #include "TradeManager.h"
 
 QString TradeManager::getPath(const QString& name) {
-    QDir dataPath("Data/TradeData");
+    QString basePath = QDir::currentPath() + "Data/TradeData/";
+    QDir dataPath(basePath);
     if (!dataPath.exists())
     {
-        dataPath.mkpath("Data/TradeData");
+        dataPath.mkpath(".");
     }
-    return "Data/TradeData/" + name + ".txt";
+    return basePath + name + ".trade";
 }
 
 TradeManager::~TradeManager() {

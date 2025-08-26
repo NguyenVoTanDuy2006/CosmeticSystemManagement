@@ -15,5 +15,6 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <QDir>
+#include <QImage>
 
 // using namespace std;

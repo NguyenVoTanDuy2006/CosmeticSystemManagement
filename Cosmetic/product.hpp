@@ -9,12 +9,14 @@ private:
     static int nextID;
     QString ID;
     productInfo info;
+    QString picture;
     std::vector<LotInfo> Shipments;
 
     void addShipment(const LotInfo &lot);
     void removeShipment(LotInfo &lot);
     LotInfo &findShipment(const QDateTime &date);
 
+    static QString getPicturePath(QString ID);
     static QString CreateID();
     static QString CreateID(int number);
 
@@ -23,8 +25,10 @@ public:
     Product();
     Product(int id, const productInfo &info);
     Product(const QString &ID, const productInfo &info);
-    explicit Product(const productInfo &info);
     explicit Product(const QString& ID);
+    explicit Product(const productInfo &info);
+    explicit Product(const productInfo &info, const QString& pictureSourcePath);
+
     ~Product();
 
     Product &operator=(const Product &other);
@@ -33,8 +37,9 @@ public:
 
     static void setLastIDNumber(int number);
 
-    productInfo getInfo() const;
     const QString& getID() const;
+    const QString& getPicturePath() const;
+    productInfo getInfo() const;
     QString getHSD() const;
     int getStock() const;
 
