@@ -38,4 +38,9 @@ public:
     friend QTextStream &operator<<(QTextStream &os, const Product &obj);
 
     friend class productManager;
+    const std::string& getID() const;
+
+    int getStock() const;
+
+    std::string getHSD() const;
 };

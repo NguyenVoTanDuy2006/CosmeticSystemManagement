@@ -57,3 +57,16 @@ void Product::setLastIDNumber(int number) {
 productInfo Product::getInfo() const{
     return this->info;
 }
+
+const std::string& Product::getID() const { return ID; }
+
+int Product::getStock() const {
+    int total = 0;
+    for (const auto& lot : Shipments) total += lot.quantity;
+    return total;
+}
+
+std::string Product::getHSD() const {
+    if (Shipments.empty()) return "";
+    return Shipments.front().HSD.toString("dd/MM/yyyy").toStdString();
+}
