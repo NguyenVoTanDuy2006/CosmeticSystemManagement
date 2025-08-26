@@ -42,6 +42,8 @@ public:
     productInfo getInfo() const;
     QString getHSD() const;
     int getStock() const;
+    std::vector<LotInfo>& getShipments();
+
 
     friend QTextStream &operator>>(QTextStream &is, Product &obj);
     friend QTextStream &operator<<(QTextStream &os, const Product &obj);

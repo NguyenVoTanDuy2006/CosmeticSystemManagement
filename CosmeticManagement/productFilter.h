@@ -51,5 +51,55 @@ public:
     }
 };
 
+class ProductDateFilter: public baseProductFilter
+{
+public:
+    ProductDateFilter(const std::function<bool (Product)>& condition): baseProductFilter(condition){}
+};
+
+class ProductUnexpiredFilter: public ProductDateFilter
+{
+    public:
+    ProductUnexpiredFilter(): ProductDateFilter([](Product product)
+    {
+        QDateTime now = QDateTime::currentDateTime();
+        std::vector<LotInfo>& shipments = product.getShipments();
+        for (auto shipment:shipments)
+        {
+            if (shipment.HSD > now) return true;
+        }
+        return false;
+    }){}
+};
+
+class ProductExpiredFilter: public ProductDateFilter
+{
+    public:
+    ProductExpiredFilter(): ProductDateFilter([](Product product)
+    {
+        QDateTime now = QDateTime::currentDateTime();
+        std::vector<LotInfo>& shipments = product.getShipments();
+        for (auto shipment:shipments)
+        {
+            if (shipment.HSD < now) return true;
+        }
+        return false;
+    }){}
+};
+
+class ProductNearExpiryFilter: public ProductDateFilter
+{
+    public:
+    ProductNearExpiryFilter(): ProductDateFilter([](Product product)
+    {
+        QDateTime now = QDateTime::currentDateTime().addDays(-15);
+        std::vector<LotInfo>& shipments = product.getShipments();
+        for (auto shipment:shipments)
+        {
+            if (shipment.HSD > now) return true;
+        }
+        return false;
+    }){}
+};
 
 #endif //PRODUCTFILTER_H

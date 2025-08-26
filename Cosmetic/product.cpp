@@ -84,6 +84,11 @@ int Product::getStock() const {
     return total;
 }
 
+std::vector<LotInfo>& Product::getShipments()
+{
+    return Shipments;
+}
+
 QString Product::getHSD() const {
     if (Shipments.empty()) return "";
     return QString(Shipments.front().HSD.toString("dd/MM/yyyy"));
