@@ -1,7 +1,7 @@
 #include "productManager.h"
 
 QString productManager::getPath(const QString& name) {
-    QString basePath = QDir::currentPath() + "Data/ProductData/";
+    QString basePath = QDir::currentPath() + "/Data/ProductData/";
     QDir dataPath(basePath);
     if (!dataPath.exists())
         dataPath.mkpath(".");
