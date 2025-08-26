@@ -1,4 +1,4 @@
-#include "product manager.h"
+#include "productManager.h"
 
 bool productManager::saveData() {
     removeProduct(""); // Keep logic if necessary

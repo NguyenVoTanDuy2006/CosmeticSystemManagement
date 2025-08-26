@@ -1,6 +1,6 @@
 #include "product manager.h"
 
-std::vector<Product> productManager::filterByBrand(std::vector<std::shared_ptr<baseProductFilter>> conditions) const
+std::vector<Product> productManager::getFilter(std::vector<std::shared_ptr<baseProductFilter>> conditions) const
 {
     std::vector<Product> products;
     for (const auto& item : this->products)

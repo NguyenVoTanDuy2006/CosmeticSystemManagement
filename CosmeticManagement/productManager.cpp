@@ -1,4 +1,4 @@
-#include "product manager.h"
+#include "productManager.h"
 
 QString productManager::getPath(const QString& name) {
     QDir dataPath("Data/ProductData");

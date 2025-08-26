@@ -1,4 +1,4 @@
-#include "product manager.h"
+#include "productManager.h"
 
 void productManager::addProduct(const productInfo &info) {
     products.push_back(Product(info));
