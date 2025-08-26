@@ -34,8 +34,8 @@ public:
     static void setLastIDNumber(int number);
 
     productInfo getInfo() const;
-    const std::string& getID() const;
-    std::string getHSD() const;
+    const QString& getID() const;
+    QString getHSD() const;
     int getStock() const;
 
     friend QTextStream &operator>>(QTextStream &is, Product &obj);
