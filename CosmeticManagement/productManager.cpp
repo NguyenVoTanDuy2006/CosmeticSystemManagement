@@ -5,7 +5,7 @@ QString productManager::getPath(const QString& name) {
     QDir dataPath(basePath);
     if (!dataPath.exists())
         dataPath.mkpath(".");
-    return basePath + name + ".sp";
+    return basePath + name + ".txt";
 }
 
 productManager::productManager() {

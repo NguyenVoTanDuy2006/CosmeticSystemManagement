@@ -7,7 +7,7 @@ QString TradeManager::getPath(const QString& name) {
     {
         dataPath.mkpath(".");
     }
-    return basePath + name + ".trade";
+    return basePath + name + ".txt";
 }
 
 TradeManager::~TradeManager() {
