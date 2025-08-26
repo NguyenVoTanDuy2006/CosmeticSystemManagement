@@ -32,15 +32,14 @@ public:
     bool operator < (const Product &other) const;
 
     static void setLastIDNumber(int number);
+
     productInfo getInfo() const;
+    const std::string& getID() const;
+    std::string getHSD() const;
+    int getStock() const;
 
     friend QTextStream &operator>>(QTextStream &is, Product &obj);
     friend QTextStream &operator<<(QTextStream &os, const Product &obj);
 
     friend class productManager;
-    const std::string& getID() const;
-
-    int getStock() const;
-
-    std::string getHSD() const;
 };

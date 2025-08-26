@@ -1,6 +1,8 @@
 #pragma once
 #include "libs.hpp"
 #include "product.hpp"
+#include "productFilter.h"
+
 
 class productManager
 {
@@ -16,8 +18,7 @@ public:
     void removeProduct(const QString& ID);
     Product& findProduct(const QString& name);
 
-    std::vector<Product> filterByBrand(const QString& brand) const;
-    std::vector<Product> filterByType(TYPE type) const;
+    std::vector<Product> filterByBrand(std::vector<std::shared_ptr<baseProductFilter>> conditions) const;
 
     void displayAll() const {
         qDebug() << "--- ALL PRODUCTS ---";
