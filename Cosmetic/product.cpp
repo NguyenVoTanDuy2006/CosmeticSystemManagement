@@ -58,7 +58,7 @@ productInfo Product::getInfo() const{
     return this->info;
 }
 
-const std::string& Product::getID() const { return ID; }
+Qtring& Product::getID() const { return ID; }
 
 int Product::getStock() const {
     int total = 0;
@@ -66,7 +66,7 @@ int Product::getStock() const {
     return total;
 }
 
-std::string Product::getHSD() const {
+Qtring Product::getHSD() const {
     if (Shipments.empty()) return "";
     return Shipments.front().HSD.toString("dd/MM/yyyy").toStdString();
 }
