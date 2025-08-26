@@ -31,7 +31,7 @@ public:
              qDebug() << "-------------------------------------------";
         }
     }
-
+    std::vector<Product> getProducts() const {return products;}
     bool readData();
     bool saveData();
 };
