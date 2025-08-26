@@ -8,9 +8,12 @@ void TradeManager::addTrade(const QString& productID, int quantity, int revenue,
     trades.push_back(std::make_shared<TradeOut>(productID, client, quantity, revenue));
 }
 
-bool TradeManager::deleteTrade(const QString& ID) {
+bool TradeManager::deleteTrade(std::vector<QString> IDs) {
     auto it = std::remove_if(trades.begin(), trades.end(),
-        [&](const std::shared_ptr<Trade>& trade){ return trade->ID == ID; });
+        [&](const std::shared_ptr<Trade>& trade)
+        {
+            return find(IDs.begin(), IDs.end(), trade->ID) != IDs.end();
+        });
 
     if (it != trades.end()) {
         trades.erase(it, trades.end());

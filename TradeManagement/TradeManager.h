@@ -15,7 +15,7 @@ public:
 
     void addTrade(const QString& productID, const LotInfo& shipment, int capital);
     void addTrade(const QString& productID, int quantity, int revenue, const Client& client);
-    bool deleteTrade(const QString& ID);
+    bool deleteTrade(std::vector<QString> IDs);
     std::shared_ptr<Trade> findTrade(const QString& ID);
     std::vector<std::shared_ptr<Trade>> getTradesFromTo(const QDateTime& from, const QDateTime& to) const;
 

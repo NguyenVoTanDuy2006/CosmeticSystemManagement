@@ -15,7 +15,7 @@ public:
     ~productManager();
 
     void addProduct(const productInfo& info);
-    void removeProduct(const QString& ID);
+    void removeProduct(std::vector<QString> IDs);
     Product& findProduct(const QString& name);
 
     std::vector<Product> getFilter(std::vector<std::shared_ptr<baseProductFilter>> conditions) const;
