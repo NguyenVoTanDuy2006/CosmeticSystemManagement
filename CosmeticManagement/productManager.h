@@ -18,7 +18,7 @@ public:
     void removeProduct(std::vector<QString> IDs);
     Product& findProduct(const QString& name);
 
-    std::vector<Product> getFilter(std::vector<std::shared_ptr<baseProductFilter>> conditions) const;
+    std::vector<Product> getFilteredProducts(std::vector<std::shared_ptr<baseProductFilter>> conditions) const;
 
     void displayAll() const {
         qDebug() << "--- ALL PRODUCTS ---";

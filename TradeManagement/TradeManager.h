@@ -17,12 +17,12 @@ public:
     void addTrade(const QString& productID, int quantity, int revenue, const Client& client);
     bool deleteTrade(std::vector<QString> IDs);
     std::shared_ptr<Trade> findTrade(const QString& ID);
-    std::vector<std::shared_ptr<Trade>> getTradesFromTo(const QDateTime& from, const QDateTime& to) const;
 
     int getTradeCount() const { return trades.size(); }
 
-    //filter;
-    std::vector<std::shared_ptr<Trade>> getFilterTrades(const std::vector<std::shared_ptr<baseTradeFilterCondition>>& conditions) const;
+    //filter
+    std::vector<std::shared_ptr<Trade>> getFilteredTrades(
+        const std::vector<std::shared_ptr<baseTradeFilterCondition>>& conditions) const;
 
     bool readData();
     bool writeData() const;

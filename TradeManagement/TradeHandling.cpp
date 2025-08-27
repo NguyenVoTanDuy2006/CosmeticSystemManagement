@@ -29,19 +29,20 @@ std::shared_ptr<Trade> TradeManager::findTrade(const QString& ID) {
     return nullptr;
 }
 
-std::vector<std::shared_ptr<Trade>> TradeManager::getFilterTrades(
+std::vector<std::shared_ptr<Trade>> TradeManager::getFilteredTrades(
     const std::vector<std::shared_ptr<baseTradeFilterCondition>>& conditions) const
 {
-    std::vector<std::shared_ptr<Trade>> filterTrades;
-    bool flag;
+    std::vector<std::shared_ptr<Trade>> filteredTrades;
     for (const auto& trade: trades)
     {
-        flag = true;
         for (auto condition: conditions)
         {
-            flag = (flag && condition->check(trade));
+            if (condition->check(trade))                        // chi can ton tai 1 dieu kien thoa la dc
+            {
+                filteredTrades.push_back((trade));
+                break;
+            }
         }
-        if (flag) { filterTrades.push_back(trade); }
     }
-    return filterTrades;
+    return filteredTrades;
 }
