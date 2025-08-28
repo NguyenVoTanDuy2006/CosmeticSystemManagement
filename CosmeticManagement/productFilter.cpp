@@ -5,13 +5,10 @@ std::vector<Product> productManager::getFilteredProducts(std::vector<std::shared
     std::vector<Product> filteredProducts;
     for (const auto& item : this->products)
     {
-        for (const auto& condition: conditions)
+        if (std::all_of(conditions.begin(), conditions.end(),
+                [&](const auto& condition) {return condition->check(item);}))
         {
-            if (condition->check(item))
-            {
-                filteredProducts.push_back(item);
-                break;
-            }
+            filteredProducts.push_back(item);
         }
     }
     return filteredProducts;

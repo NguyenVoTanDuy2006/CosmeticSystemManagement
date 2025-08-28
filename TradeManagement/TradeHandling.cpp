@@ -35,13 +35,10 @@ std::vector<std::shared_ptr<Trade>> TradeManager::getFilteredTrades(
     std::vector<std::shared_ptr<Trade>> filteredTrades;
     for (const auto& trade: trades)
     {
-        for (auto condition: conditions)
+        if (std::all_of(conditions.begin(), conditions.end(),
+                [&](const auto& condition){return condition->check(trade);}))
         {
-            if (condition->check(trade))                        // chi can ton tai 1 dieu kien thoa la dc
-            {
-                filteredTrades.push_back((trade));
-                break;
-            }
+            filteredTrades.push_back(trade);
         }
     }
     return filteredTrades;
