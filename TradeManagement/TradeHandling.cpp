@@ -15,8 +15,14 @@ bool TradeManager::deleteTrade(std::vector<QString> IDs) {
             return find(IDs.begin(), IDs.end(), trade->ID) != IDs.end();
         });
 
+
     if (it != trades.end()) {
-        trades.erase(it, trades.end());
+        const auto begin_of_remove = it;
+        for (; it != trades.end(); ++it)
+        {
+            QFile::remove(getPath((*it)->getID()));
+        }
+        trades.erase(begin_of_remove, trades.end());
         return true;
     }
     return false;
