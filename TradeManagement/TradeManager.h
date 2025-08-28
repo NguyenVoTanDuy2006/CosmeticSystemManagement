@@ -9,12 +9,13 @@ class TradeManager {
 private:
     std::vector<std::shared_ptr<Trade>> trades;
     static QString getPath(const QString& name);
-public:
     TradeManager() = default;
+public:
+    static std::shared_ptr<TradeManager> getInstance();
     ~TradeManager();
 
-    void addTrade(const QString& productID, const LotInfo& shipment, int capital);
-    void addTrade(const QString& productID, int quantity, int revenue, const Client& client);
+    bool addTrade(const QString& productID, const LotInfo& shipment, int capital);
+    bool addTrade(const QString& productID, int quantity, int revenue, const Client& client);
     bool deleteTrade(std::vector<QString> IDs);
     std::shared_ptr<Trade> findTrade(const QString& ID);
 

@@ -10,6 +10,12 @@ QString TradeManager::getPath(const QString& name) {
     return basePath + name + ".txt";
 }
 
+std::shared_ptr<TradeManager> TradeManager::getInstance()
+{
+    static std::shared_ptr<TradeManager> instance = std::make_shared<TradeManager>();
+    return instance;
+}
+
 TradeManager::~TradeManager() {
     trades.clear();
 }

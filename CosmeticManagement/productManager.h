@@ -9,9 +9,10 @@ class productManager
 private:
     std::vector<Product> products;
     static QString getPath(const QString& name);
+    productManager();
 
 public:
-    productManager();
+    static std::shared_ptr<productManager> getInstance();
     ~productManager();
 
     void addProduct(const productInfo& info);
@@ -20,18 +21,9 @@ public:
 
     std::vector<Product> getFilteredProducts(std::vector<std::shared_ptr<baseProductFilter>> conditions) const;
 
-    void displayAll() const {
-        qDebug() << "--- ALL PRODUCTS ---";
-        for (const auto& product : products) {
-             if (product.getInfo().name.isEmpty()) continue;
-             QString productString;
-             QTextStream ss(&productString);
-             ss << product;
-             qDebug().noquote() << productString;
-             qDebug() << "-------------------------------------------";
-        }
-    }
-    std::vector<Product> getProducts() const {return products;}
+    bool importProduct(QString ID, const LotInfo& shipment);
+    bool exportProduct(QString ID, int quantity);
     bool readData();
     bool saveData();
+    std::vector<Product> getProducts() const {return products;}
 };
