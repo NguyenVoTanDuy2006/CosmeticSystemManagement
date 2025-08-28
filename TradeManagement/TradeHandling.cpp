@@ -2,7 +2,7 @@
 #include "productManager.h"
 
 bool TradeManager::addTrade(const QString& productID, const LotInfo& shipment, int capital) {
-    if (productManager::getInstance()->importProduct(productID, shipment))
+    if (productManager::getInstance().importProduct(productID, shipment))
     {
         trades.push_back(std::make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital));
         return true;
@@ -11,7 +11,7 @@ bool TradeManager::addTrade(const QString& productID, const LotInfo& shipment, i
 }
 
 bool TradeManager::addTrade(const QString& productID, int quantity, int revenue, const Client& client) {
-    if (productManager::getInstance()->exportProduct(productID, quantity))
+    if (productManager::getInstance().exportProduct(productID, quantity))
     {
         trades.push_back(std::make_shared<TradeOut>(productID, client, quantity, revenue));
         return true;
