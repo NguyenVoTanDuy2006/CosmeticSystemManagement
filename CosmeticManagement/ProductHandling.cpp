@@ -15,7 +15,7 @@ void productManager::removeProduct(std::vector<QString> IDs) {
     // remove file;
     for (; it != products.end(); ++it)
     {
-        QFile::remove(std::_Simple_types<Product>::value_type::getPicturePath(it->getID()));
+        QFile::remove(Product::getPicturePath(it->getID()));
         QFile::remove(getPath(it->getID()));
     }
     products.erase(begin_of_remove, products.end());
