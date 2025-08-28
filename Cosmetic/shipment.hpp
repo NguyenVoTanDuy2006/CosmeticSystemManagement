@@ -8,14 +8,21 @@ struct LotInfo
     int quantity;
     LotInfo() : id(""), quantity(-1) {}
     LotInfo(const QDateTime &NSX, const QDateTime &HSD, const int &quantity) : NSX(NSX), HSD(HSD), quantity(quantity) { id = CreateLotID(); }
-
+    static LotInfo& nullValue();
     bool operator<(const LotInfo &a) const {
         return HSD < a.HSD;
     }
+private:
     QString CreateLotID() {
         return NSX.toString("ddMMyyyy") + HSD.toString("ddMMyyyy");
     }
 };
+
+inline LotInfo& LotInfo::nullValue()
+{
+    static LotInfo nValue = LotInfo();
+    return nValue;
+}
 
 inline QTextStream &operator>>(QTextStream &is, LotInfo &obj)
 {

@@ -14,7 +14,7 @@ private:
 
     void addShipment(const LotInfo &lot);
     void removeShipment(LotInfo &lot);
-    LotInfo &findShipment(const QDateTime &date);
+    LotInfo &findShipment(const QString& ID);
 
     static QString getPicturePath(QString ID);
     static QString CreateID();
