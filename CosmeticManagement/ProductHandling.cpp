@@ -11,9 +11,14 @@ void productManager::removeProduct(std::vector<QString> IDs) {
             return std::find(IDs.begin(), IDs.end(), p.getID()) != IDs.end();
         });
 
-    if (it != products.end()) {
-        products.erase(it, products.end());
+    const auto begin_of_remove = it;
+    // remove file;
+    for (; it != products.end(); ++it)
+    {
+        QFile::remove(std::_Simple_types<Product>::value_type::getPicturePath(it->getID()));
+        QFile::remove(getPath(it->getID()));
     }
+    products.erase(begin_of_remove, products.end());
 }
 
 Product& productManager::findProduct(const QString& name) {
