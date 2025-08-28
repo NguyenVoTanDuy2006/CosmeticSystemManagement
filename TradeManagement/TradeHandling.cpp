@@ -1,11 +1,22 @@
 #include "TradeManager.h"
+#include "productManager.h"
 
-void TradeManager::addTrade(const QString& productID, const LotInfo& shipment, int capital) {
-    trades.push_back(std::make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital));
+bool TradeManager::addTrade(const QString& productID, const LotInfo& shipment, int capital) {
+    if (productManager::getInstance()->importProduct(productID, shipment))
+    {
+        trades.push_back(std::make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital))
+        return true;
+    }
+    return false;   // cant find product;
 }
 
-void TradeManager::addTrade(const QString& productID, int quantity, int revenue, const Client& client) {
-    trades.push_back(std::make_shared<TradeOut>(productID, client, quantity, revenue));
+bool TradeManager::addTrade(const QString& productID, int quantity, int revenue, const Client& client) {
+    if (productManager::getInstance()->exportProduct(productID, quantity))
+    {
+        trades.push_back(std::make_shared<TradeOut>(productID, client, quantity, revenue));
+        return true;
+    }
+    return false; // cant find product or not enough quantity
 }
 
 bool TradeManager::deleteTrade(std::vector<QString> IDs) {
