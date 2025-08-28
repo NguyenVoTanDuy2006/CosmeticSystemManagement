@@ -4,7 +4,7 @@
 bool TradeManager::addTrade(const QString& productID, const LotInfo& shipment, int capital) {
     if (productManager::getInstance()->importProduct(productID, shipment))
     {
-        trades.push_back(std::make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital))
+        trades.push_back(std::make_shared<TradeIn>(productID, shipment.id, shipment.quantity, capital));
         return true;
     }
     return false;   // cant find product;
