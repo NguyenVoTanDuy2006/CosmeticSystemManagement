@@ -37,12 +37,15 @@ public:
 
     static void setLastIDNumber(int number);
 
+    //getter
     const QString& getID() const;
     const QString& getPicturePath() const;
     productInfo getInfo() const;
     QString getHSD() const;
     int getStock() const;
     std::vector<LotInfo>& getShipments();
+
+    //setter
 
 
     friend QTextStream &operator>>(QTextStream &is, Product &obj);

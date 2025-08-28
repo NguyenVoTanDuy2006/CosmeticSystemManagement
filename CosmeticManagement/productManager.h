@@ -12,7 +12,7 @@ private:
     productManager();
 
 public:
-    static std::shared_ptr<productManager> getInstance();
+    static productManager getInstance();
     ~productManager();
 
     void addProduct(const productInfo& info);

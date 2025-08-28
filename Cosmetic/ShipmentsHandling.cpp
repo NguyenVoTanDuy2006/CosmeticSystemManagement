@@ -10,7 +10,7 @@ void Product::addShipment(const LotInfo& lot)
     else
     {
         Shipments.push_back(lot);
-        std::sort(Shipments.begin(), Shipments.end()
+        std::sort(Shipments.begin(), Shipments.end());
     }
 }
 

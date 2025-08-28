@@ -12,9 +12,9 @@ productManager::productManager() {
     products.emplace_back(); // dummy product
 }
 
-std::shared_ptr<productManager> productManager::getInstance()
+productManager productManager::getInstance()
 {
-    static std::shared_ptr<productManager> instance = std::make_shared<productManager>();
+    static productManager instance;
     return instance;
 }
 
