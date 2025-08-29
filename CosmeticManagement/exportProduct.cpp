@@ -6,7 +6,7 @@
 // lay san pham cu nhat toi moi nhat, xong lo nao la xoa lo do di
 bool productManager::exportProduct(QString ID, int quantity)
 {
-    Product& product = findProduct(ID);
+    Product& product = findProductByID(ID);
     if (product.ID.compare(ID) == 0 && product.getStock() >= quantity)
     {
         std::vector<LotInfo>& shipments = product.getShipments();

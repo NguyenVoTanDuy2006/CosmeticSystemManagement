@@ -18,6 +18,15 @@ productManager& productManager::getInstance()
     return instance;
 }
 
+QString productManager::NameToID(const QString& name) const
+{
+    for (auto product : products)
+    {
+        if (product.getInfo().name == name) return product.getID();
+    }
+    return QString();
+}
+
 productManager::~productManager() {
     products.clear();
 }

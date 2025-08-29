@@ -14,6 +14,9 @@ public:
     static TradeManager& getInstance();
     ~TradeManager();
 
+    TradeManager(const TradeManager&) = delete;
+    TradeManager& operator=(const TradeManager&) = delete;
+
     bool addTrade(const QString& productID, const LotInfo& shipment, int capital);
     bool addTrade(const QString& productID, int quantity, int revenue, const Client& client);
     bool deleteTrade(std::vector<QString> IDs);

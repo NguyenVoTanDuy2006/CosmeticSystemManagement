@@ -5,7 +5,7 @@
 
 bool productManager::importProduct(QString ID, const LotInfo& shipment)
 {
-    Product& product = findProduct(ID);
+    Product& product = findProductByID(ID);
     if (product.getID().compare(ID) == 0)
     {
         product.addShipment(shipment);

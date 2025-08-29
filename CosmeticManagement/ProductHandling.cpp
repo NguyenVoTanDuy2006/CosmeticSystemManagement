@@ -21,9 +21,17 @@ void productManager::removeProduct(std::vector<QString> IDs) {
     products.erase(begin_of_remove, products.end());
 }
 
-Product& productManager::findProduct(const QString& name) {
+Product& productManager::findProductByName(const QString& name) {
     for (auto& product : products) {
         if (product.getInfo().name == name) return product;
+    }
+    return products[0]; // dummy product
+}
+
+Product& productManager::findProductByID(const QString& ID)
+{
+    for (auto& product : products) {
+        if (product.getID() == ID) return product;
     }
     return products[0]; // dummy product
 }
