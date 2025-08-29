@@ -10,6 +10,7 @@ private:
     QString ID;
     productInfo info;
     QString picture;
+
     std::vector<LotInfo> Shipments;
 
     void addShipment(const LotInfo &lot);
@@ -46,7 +47,8 @@ public:
     std::vector<LotInfo>& getShipments();
 
     //setter
-
+    void setInfo(const productInfo& info);
+    void setPicture(const QString& sourcePath);
 
     friend QTextStream &operator>>(QTextStream &is, Product &obj);
     friend QTextStream &operator<<(QTextStream &os, const Product &obj);
