@@ -11,7 +11,7 @@ private:
     static QString getPath(const QString& name);
     TradeManager() = default;
 public:
-    static TradeManager getInstance();
+    static TradeManager& getInstance();
     ~TradeManager();
 
     bool addTrade(const QString& productID, const LotInfo& shipment, int capital);
