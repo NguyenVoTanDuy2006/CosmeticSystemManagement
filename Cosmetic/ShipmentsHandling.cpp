@@ -5,7 +5,7 @@ void Product::addShipment(const LotInfo& lot)
     LotInfo& shipment = findShipment(lot.id);
     if (shipment.id != LotInfo::nullValue().id)
     {
-        shipment.quantity += LotInfo::nullValue().quantity;
+        shipment.quantity += lot.quantity;
     }
     else
     {

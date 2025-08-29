@@ -92,12 +92,12 @@ class ProductNearExpiryFilter: public ProductDateFilter
     public:
     ProductNearExpiryFilter(): ProductDateFilter([](Product product)
     {
-        QDateTime from = QDateTime::currentDateTime().addDays(-15);
-        QDateTime to  = QDateTime::currentDateTime();
+        QDateTime from  = QDateTime::currentDateTime();
+        QDateTime to = QDateTime::currentDateTime().addDays(15);
         std::vector<LotInfo>& shipments = product.getShipments();
         for (auto shipment:shipments)
         {
-            if (from <=  shipment.HSD && shipment.HSD <= to) return true;
+            if (from <= shipment.HSD && shipment.HSD <= to) return true;
         }
         return false;
     }){}
