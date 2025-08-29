@@ -12,7 +12,6 @@ struct LotInfo
     bool operator<(const LotInfo &a) const {
         return HSD < a.HSD;
     }
-private:
     QString CreateLotID() {
         return NSX.toString("ddMMyyyy") + HSD.toString("ddMMyyyy");
     }
@@ -31,6 +30,7 @@ inline QTextStream &operator>>(QTextStream &is, LotInfo &obj)
     obj.NSX = QDateTime::fromString(nsx_str, "yyyy/MM/dd");
     obj.HSD = QDateTime::fromString(hsd_str, "yyyy/MM/dd");
     is.skipWhiteSpace();
+    obj.id = obj.CreateLotID();
     return is;
 }
 
