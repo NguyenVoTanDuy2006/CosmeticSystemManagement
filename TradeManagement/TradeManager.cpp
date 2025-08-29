@@ -10,7 +10,7 @@ QString TradeManager::getPath(const QString& name) {
     return basePath + name + ".txt";
 }
 
-TradeManager TradeManager::getInstance()
+TradeManager& TradeManager::getInstance()
 {
     static TradeManager instance;
     return instance;
