@@ -12,7 +12,7 @@ productManager::productManager() {
     products.emplace_back(); // dummy product
 }
 
-productManager productManager::getInstance()
+productManager& productManager::getInstance()
 {
     static productManager instance;
     return instance;
