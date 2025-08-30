@@ -1,70 +1,62 @@
 cmake_minimum_required(VERSION 3.16)
-project(CMS)
+project(LSNX VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-file(GLOB_RECURSE COSMETIC "Cosmetic/*.cpp")
-file(GLOB_RECURSE PRODUCT_MANAGEMENT "CosmeticManagement/*.cpp")
-file(GLOB_RECURSE TRADE "Trade/*.cpp")
-file(GLOB_RECURSE TRADE_MANAGEMENT "TradeManagement/*.cpp")
-file(GLOB_RECURSE MANAGEMENT "ManageSystem/*.cpp")
-
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Test)
-
-add_executable(${PROJECT_NAME} main.cpp
-    ${COSMETIC}
-    ${TRADE}
-    ${MANAGEMENT}
-    ${PRODUCT_MANAGEMENT}
-    ${TRADE_MANAGEMENT}
+# ========== App sources (UI) ==========
+qt_add_executable(LSNX
+    MANUAL_FINALIZATION
+    main.cpp
+    LSNX.cpp
+    LSNX.h
+    LSNX.ui
+    TradeCardWidget.cpp
+    TradeCardWidget.h
+    icon.qrc
+    SP.ui
+    sp.h sp.cpp
+    spcardwidget.h
+    spcardwidget.cpp
+    flowlayout.h
+    flowlayout.cpp
+    LOGIN+TRANGCHU/UiUx/login_form_gradient.ui LOGIN+TRANGCHU/UiUx/loginpage.cpp LOGIN+TRANGCHU/UiUx/loginpage.h LOGIN+TRANGCHU/UiUx/mainmenu.cpp LOGIN+TRANGCHU/UiUx/mainmenu.h LOGIN+TRANGCHU/UiUx/MainMenu.ui LOGIN+TRANGCHU/UiUx/Resources.qrc
+    LOGIN+TRANGCHU/UiUx/login_form_gradient.ui
+    app_router.h
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
+# ========== BACKEND ==========
+set(BACKEND_DIR ${CMAKE_SOURCE_DIR}/BACKEND)
 
-target_include_directories(
-    ${PROJECT_NAME} PUBLIC
-    Cosmetic
-    Trade
-    ManageSystem
-    CosmeticManagement
-    TradeManagement
+# Cho phép include tất cả header trong BACKEND/*
+target_include_directories(LSNX PRIVATE
+    ${BACKEND_DIR}
+    ${BACKEND_DIR}/Cosmetic
+    ${BACKEND_DIR}/CosmeticManagement    # <-- THÊM DÒNG NÀY
+    ${BACKEND_DIR}/Trade
+    ${BACKEND_DIR}/TradeManagement
+    ${BACKEND_DIR}/ManageSystem
 )
 
-if (MSVC)
-    target_compile_options(${PROJECT_NAME} PUBLIC "/Zc:__cplusplus")
-endif()
-
-
-enable_testing()
-
-
-# Tạo một file thực thi riêng cho việc test
-add_executable(runTests
-    ${COSMETIC}
-    ${TRADE}
-    ${MANAGEMENT}
-    ${PRODUCT_MANAGEMENT}
-    ${TRADE_MANAGEMENT}
-    test_trademanagement.cpp
-)
-target_include_directories(
-    runTests PUBLIC
-    Cosmetic
-    Trade
-    ManageSystem
-    CosmeticManagement
-    TradeManagement
+# Thu thập toàn bộ .cpp trong BACKEND (mọi thư mục con)
+file(GLOB_RECURSE BACKEND_SRC CONFIGURE_DEPENDS
+    ${BACKEND_DIR}/*.cpp
 )
 
-# Liên kết các thư viện cần thiết cho target test
-target_link_libraries(runTests PRIVATE Qt6::Core Qt6::Test)
+# Thêm vào target (tránh liệt kê trùng lặp)
+target_sources(LSNX PRIVATE ${BACKEND_SRC})
 
-# Thêm test vào CTest
-add_test(NAME TradeManagementTests COMMAND runTests)
+target_link_libraries(LSNX PRIVATE Qt6::Widgets)
+set_target_properties(LSNX PROPERTIES WIN32_EXECUTABLE TRUE)
+qt_finalize_executable(LSNX)
+
+# ========== Copy Data cạnh file .exe ==========
+add_custom_command(TARGET LSNX POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+          "${CMAKE_SOURCE_DIR}/Data"
+          "$<TARGET_FILE_DIR:LSNX>/Data")

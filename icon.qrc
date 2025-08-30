@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/resource">
+        <file>icon/home.png</file>
+        <file>icon/sanitizer_24dp_0C9F3D_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/question_mark_24dp_0C9F3D_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/settings_24dp_0C9F3D_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/arrow_forward_ios_24dp_0033A0_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/arrow_back_ios_24dp_0033A0_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/filter_alt_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/add_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/check_indeterminate_small_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/search_24dp_0033A0_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/lsnx.png</file>
+        <file>icon/edit_24dp_F3F3F3_FILL0_wght400_GRAD0_opsz24.png</file>
+        <file>icon/reply_24dp_00AA00F3_FILL0_wght400_GRAD0_opsz24.png</file>
+    </qresource>
+</RCC>

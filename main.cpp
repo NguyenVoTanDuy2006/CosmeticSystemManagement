@@ -1,29 +1,51 @@
-#include "productManager.h"
-#include "TradeManager.h"
+#include "LOGIN+TRANGCHU/UiUx/loginpage.h"
+#include "LOGIN+TRANGCHU/UiUx/mainmenu.h"
+#include "CosmeticManagement/productManager.h"
+#include "TradeManagement/TradeManager.h"
+#include "app_router.h"
+#include "LSNX.h"
+#include "sp.h"
+#include <QApplication>
+#include <QStackedWidget>
 
 int main(int argc, char *argv[])
 {
-    // // Test product management
-    productManager pm;
-    productInfo info1("Sua Rua Mat", "Hada Labo", TYPE::SUA_RUA_MAT, UNIT::TUYT, 150000);
-    pm.addProduct(info1);
-    pm.displayAll();
-    pm.saveData();
+    QApplication a(argc, argv);
+    productManager::getInstance().readData();
+    TradeManager::getInstance().readData();
 
-    qDebug() << "\n--- Reading data back ---";
+    // ----- 1) Tạo stack nhưng CHƯA show -----
+    auto *stack = new QStackedWidget;
+    stack->setStyleSheet("QStackedWidget { background-color: white; }");
+    stack->setObjectName("AppStack");
 
-    // Test trade management
-    QString testData = "SP00001\n2024/06/27 23:00:00\n100\n100000\nNVTD\n0917957481\nTan Phu\n";
-    QTextStream ss(&testData);
+    auto *wMenu = new MainMenu;
+    auto *wSP   = new sp;
+    auto *wLSNX = new LSNX;
 
-    auto trade = TradeFactory::getTrade(QStringLiteral("some_id_1")); // Type 1 for OUT
-    if (trade) {
-        trade->readData(ss);
+    stack->addWidget(wMenu);  // index 0 = Menu (mặc định)
+    stack->addWidget(wSP);    // index 1 = SP
+    stack->addWidget(wLSNX);  // index 2 = LSNX
 
-        QTextStream cout(stdout);
-        trade->writeData(cout);
-        cout << Qt::endl;
-    }
+    AppRouter::getInstance().init(stack);
+    AppRouter::getInstance().goMenu();   // vào Menu
 
-    return 0;
+    // ----- 2) Tạo Login (cửa sổ riêng) -----
+    auto *login = new LoginPage;
+    login->setAttribute(Qt::WA_DeleteOnClose);
+    login->setWindowFlag(Qt::WindowMaximizeButtonHint, false); // không cho maximize
+    login->setFixedSize(800, 480);    // cố định nếu bạn muốn
+    login->setWindowTitle("The Cosmetic Warehouse Management Application");
+    login->show();                                              // hiện Login trước
+
+    // ----- 3) Wiring: login ok -> ẩn login, show stack -----
+    QObject::connect(login, &LoginPage::loginSucceeded, [=]{
+        login->close();
+        // show stack như cửa sổ chính:
+        stack->resize(1280, 800);
+        stack->setWindowTitle("The Cosmetic Warehouse Management Application");
+        stack->show();          // hiển thị app chính (đang ở Menu)
+    });
+
+    return a.exec();
 }
