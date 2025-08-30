@@ -594,10 +594,12 @@ void sp::on_add_save_clicked() {
     info.name  = edName->text().trimmed();
     info.brand = edBrand ? edBrand->text().trimmed() : QString();
 
-    constexpr int TYPE_OFFSET = 0;
-    constexpr int UNIT_OFFSET = 0;
-    info.type  = cbType ? static_cast<TYPE>(cbType->currentIndex() + TYPE_OFFSET) : static_cast<TYPE>(0);
-    info.unit  = cbUnit ? static_cast<UNIT>(cbUnit->currentIndex() + UNIT_OFFSET) : static_cast<UNIT>(0);
+    constexpr int TYPE_OFFSET = 1;
+    constexpr int UNIT_OFFSET = 1;
+    info.type = cbType ? static_cast<TYPE>(cbType->currentIndex() + TYPE_OFFSET)
+                       : static_cast<TYPE>(1);   // hoặc giá trị hợp lệ mặc định
+    info.unit = cbUnit ? static_cast<UNIT>(cbUnit->currentIndex() + UNIT_OFFSET)
+                       : static_cast<UNIT>(1);
 
     long long price = 0;
     if (edPrice) {
