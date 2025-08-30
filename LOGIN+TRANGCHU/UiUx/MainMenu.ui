@@ -137,8 +137,14 @@ QPushButton:hover {
       </item>
       <item>
        <widget class="QLabel" name="label_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
-         <string notr="true">font-size: 20px;
+         <string notr="true">font-size: 16px;
 color: #028444;
 font-weight: bold;</string>
         </property>
@@ -475,8 +481,8 @@ font-weight: bold;</string>
 </string>
           </property>
           <property name="text">
-           <string>Sử Trương Giang   24127005  
-Võ Nguyễn Văn Anh  24127016  
+           <string>Sử Trường Giang   24127005  
+Võ Nguyễn Vân Anh  24127016  
 Nguyễn Võ Tấn Duy  24127159
 </string>
           </property>

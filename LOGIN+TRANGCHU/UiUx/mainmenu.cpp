@@ -26,6 +26,11 @@ MainMenu::MainMenu(QWidget *parent)
 {
     ui->setupUi(this);
     relaxFixed(this);
+    ui->label_6->setStyleSheet(
+        "#label_6 { font-size: 40px; color: #028444; font-weight: bold; }"
+        );
+    ui->pushButton->setFixedSize(54, 46);
+    ui->pushButton_2->setFixedSize(54, 46);
     ui->goSP->setFixedSize(280, 211);
     ui->goLSNX->setFixedSize(280, 211);
     this->setWindowTitle("The Cosmetic Warehouse Management Application");
