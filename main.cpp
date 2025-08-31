@@ -2,7 +2,7 @@
 #include "LOGIN+TRANGCHU/UiUx/mainmenu.h"
 #include "CosmeticManagement/productManager.h"
 #include "TradeManagement/TradeManager.h"
-#include "app_router.h"
+#include "Router/app_router.h"
 #include "LSNX.h"
 #include "sp.h"
 #include <QApplication>

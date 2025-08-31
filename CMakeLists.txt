@@ -9,53 +9,68 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-# ========== App sources (UI) ==========
+# ==== Thư mục con (đổi theo đúng tên folder của bạn) ====
+set(PRODUCT_DIR   "${CMAKE_SOURCE_DIR}/Product")
+set(TRADE_DIR     "${CMAKE_SOURCE_DIR}/Trade")
+set(WIDGETS_DIR   "${CMAKE_SOURCE_DIR}/Widget Card")   # có khoảng trắng -> nhớ để trong ""
+set(ROUTER_DIR    "${CMAKE_SOURCE_DIR}/Router")
+set(LOGIN_DIR     "${CMAKE_SOURCE_DIR}/LOGIN+TRANGCHU/UiUx")  # chỗ bạn để Login/MainMenu
+
+# ==== App sources ====
 qt_add_executable(LSNX
-    MANUAL_FINALIZATION
     main.cpp
-    LSNX.cpp
-    LSNX.h
-    LSNX.ui
-    TradeCardWidget.cpp
-    TradeCardWidget.h
+
+    # Trade (LSNX)
+    "${TRADE_DIR}/LSNX.cpp"       "${TRADE_DIR}/LSNX.h"       "${TRADE_DIR}/LSNX.ui"
+
+    # Product (SP)
+    "${PRODUCT_DIR}/sp.cpp"       "${PRODUCT_DIR}/sp.h"       "${PRODUCT_DIR}/SP.ui"
+
+    # Widgets
+    "${WIDGETS_DIR}/TradeCardWidget.cpp"  "${WIDGETS_DIR}/TradeCardWidget.h"
+    "${WIDGETS_DIR}/spcardwidget.cpp"     "${WIDGETS_DIR}/spcardwidget.h"
+    "${WIDGETS_DIR}/flowlayout.cpp"       "${WIDGETS_DIR}/flowlayout.h"
+
+    # Router
+    "${ROUTER_DIR}/app_router.h"          # nếu có app_router.cpp thì thêm luôn
+
+    # Login + Main Menu  <<< QUAN TRỌNG
+    "${LOGIN_DIR}/loginpage.cpp"          "${LOGIN_DIR}/loginpage.h"          "${LOGIN_DIR}/login_form_gradient.ui"
+    "${LOGIN_DIR}/mainmenu.cpp"           "${LOGIN_DIR}/mainmenu.h"           "${LOGIN_DIR}/MainMenu.ui"
+
+    # Resources
     icon.qrc
-    SP.ui
-    sp.h sp.cpp
-    spcardwidget.h
-    spcardwidget.cpp
-    flowlayout.h
-    flowlayout.cpp
-    LOGIN+TRANGCHU/UiUx/login_form_gradient.ui LOGIN+TRANGCHU/UiUx/loginpage.cpp LOGIN+TRANGCHU/UiUx/loginpage.h LOGIN+TRANGCHU/UiUx/mainmenu.cpp LOGIN+TRANGCHU/UiUx/mainmenu.h LOGIN+TRANGCHU/UiUx/MainMenu.ui LOGIN+TRANGCHU/UiUx/Resources.qrc
-    LOGIN+TRANGCHU/UiUx/login_form_gradient.ui
-    app_router.h
 )
 
-# ========== BACKEND ==========
-set(BACKEND_DIR ${CMAKE_SOURCE_DIR}/BACKEND)
+# ==== BACKEND ====
+set(BACKEND_DIR "${CMAKE_SOURCE_DIR}/BACKEND")
 
-# Cho phép include tất cả header trong BACKEND/*
+# Cho phép include các header backend
 target_include_directories(LSNX PRIVATE
-    ${BACKEND_DIR}
-    ${BACKEND_DIR}/Cosmetic
-    ${BACKEND_DIR}/CosmeticManagement    # <-- THÊM DÒNG NÀY
-    ${BACKEND_DIR}/Trade
-    ${BACKEND_DIR}/TradeManagement
-    ${BACKEND_DIR}/ManageSystem
+    "${BACKEND_DIR}"
+    "${BACKEND_DIR}/Cosmetic"
+    "${BACKEND_DIR}/CosmeticManagement"
+    "${BACKEND_DIR}/Trade"
+    "${BACKEND_DIR}/TradeManagement"
+    "${BACKEND_DIR}/ManageSystem"
+
+    # include path cho UI mới sắp xếp
+    "${PRODUCT_DIR}"
+    "${TRADE_DIR}"
+    "${WIDGETS_DIR}"
+    "${ROUTER_DIR}"
+    "${LOGIN_DIR}"
 )
 
-# Thu thập toàn bộ .cpp trong BACKEND (mọi thư mục con)
-file(GLOB_RECURSE BACKEND_SRC CONFIGURE_DEPENDS
-    ${BACKEND_DIR}/*.cpp
-)
-
-# Thêm vào target (tránh liệt kê trùng lặp)
+# Gom toàn bộ .cpp của backend
+file(GLOB_RECURSE BACKEND_SRC CONFIGURE_DEPENDS "${BACKEND_DIR}/*.cpp")
 target_sources(LSNX PRIVATE ${BACKEND_SRC})
 
 target_link_libraries(LSNX PRIVATE Qt6::Widgets)
 set_target_properties(LSNX PROPERTIES WIN32_EXECUTABLE TRUE)
 qt_finalize_executable(LSNX)
 
-# ========== Copy Data cạnh file .exe ==========
+# Copy Data cạnh .exe
 add_custom_command(TARGET LSNX POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
           "${CMAKE_SOURCE_DIR}/Data"

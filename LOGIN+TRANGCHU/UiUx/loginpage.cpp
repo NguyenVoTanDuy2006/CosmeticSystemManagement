@@ -1,7 +1,7 @@
 #include "loginpage.h"
 #include <QPushButton>
 #include "mainmenu.h"
-#include "../app_router.h"
+#include "app_router.h"
 #include <QIcon>
 #include <QLineEdit>
 #include <QAction>

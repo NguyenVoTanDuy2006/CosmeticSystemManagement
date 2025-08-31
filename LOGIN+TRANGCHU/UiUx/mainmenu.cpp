@@ -1,6 +1,6 @@
 #include "mainmenu.h"
 #include "ui_MainMenu.h"
-#include "../app_router.h"
+#include "app_router.h"
 
 static void relaxFixed(QWidget* w) {
     if (!w) return;
