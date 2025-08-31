@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
-project(LSNX VERSION 0.1 LANGUAGES CXX)
+
+# Tên project mới
+project(COSMETIC_MANAGEMENT VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -9,15 +11,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-# ==== Thư mục con (đổi theo đúng tên folder của bạn) ====
+# ==== Thư mục con ====
 set(PRODUCT_DIR   "${CMAKE_SOURCE_DIR}/Product")
 set(TRADE_DIR     "${CMAKE_SOURCE_DIR}/Trade")
-set(WIDGETS_DIR   "${CMAKE_SOURCE_DIR}/Widget Card")   # có khoảng trắng -> nhớ để trong ""
+set(WIDGETS_DIR   "${CMAKE_SOURCE_DIR}/Widget Card")   # có khoảng trắng -> để trong ""
 set(ROUTER_DIR    "${CMAKE_SOURCE_DIR}/Router")
-set(LOGIN_DIR     "${CMAKE_SOURCE_DIR}/LOGIN+TRANGCHU/UiUx")  # chỗ bạn để Login/MainMenu
+set(LOGIN_DIR     "${CMAKE_SOURCE_DIR}/LOGIN+TRANGCHU/UiUx")
 
-# ==== App sources ====
-qt_add_executable(LSNX
+# ==== App sources (target/exe mang tên mới) ====
+qt_add_executable(COSMETIC_MANAGEMENT
     main.cpp
 
     # Trade (LSNX)
@@ -32,9 +34,9 @@ qt_add_executable(LSNX
     "${WIDGETS_DIR}/flowlayout.cpp"       "${WIDGETS_DIR}/flowlayout.h"
 
     # Router
-    "${ROUTER_DIR}/app_router.h"          # nếu có app_router.cpp thì thêm luôn
+    "${ROUTER_DIR}/app_router.h"          # nếu có .cpp thì thêm vào
 
-    # Login + Main Menu  <<< QUAN TRỌNG
+    # Login + Main Menu
     "${LOGIN_DIR}/loginpage.cpp"          "${LOGIN_DIR}/loginpage.h"          "${LOGIN_DIR}/login_form_gradient.ui"
     "${LOGIN_DIR}/mainmenu.cpp"           "${LOGIN_DIR}/mainmenu.h"           "${LOGIN_DIR}/MainMenu.ui"
 
@@ -44,34 +46,24 @@ qt_add_executable(LSNX
 
 # ==== BACKEND ====
 set(BACKEND_DIR "${CMAKE_SOURCE_DIR}/BACKEND")
-
-# Cho phép include các header backend
-target_include_directories(LSNX PRIVATE
+target_include_directories(COSMETIC_MANAGEMENT PRIVATE
     "${BACKEND_DIR}"
     "${BACKEND_DIR}/Cosmetic"
     "${BACKEND_DIR}/CosmeticManagement"
     "${BACKEND_DIR}/Trade"
     "${BACKEND_DIR}/TradeManagement"
     "${BACKEND_DIR}/ManageSystem"
-
-    # include path cho UI mới sắp xếp
-    "${PRODUCT_DIR}"
-    "${TRADE_DIR}"
-    "${WIDGETS_DIR}"
-    "${ROUTER_DIR}"
-    "${LOGIN_DIR}"
+    "${PRODUCT_DIR}" "${TRADE_DIR}" "${WIDGETS_DIR}" "${ROUTER_DIR}" "${LOGIN_DIR}"
 )
-
-# Gom toàn bộ .cpp của backend
 file(GLOB_RECURSE BACKEND_SRC CONFIGURE_DEPENDS "${BACKEND_DIR}/*.cpp")
-target_sources(LSNX PRIVATE ${BACKEND_SRC})
+target_sources(COSMETIC_MANAGEMENT PRIVATE ${BACKEND_SRC})
 
-target_link_libraries(LSNX PRIVATE Qt6::Widgets)
-set_target_properties(LSNX PROPERTIES WIN32_EXECUTABLE TRUE)
-qt_finalize_executable(LSNX)
+target_link_libraries(COSMETIC_MANAGEMENT PRIVATE Qt6::Widgets)
+set_target_properties(COSMETIC_MANAGEMENT PROPERTIES WIN32_EXECUTABLE TRUE)
+qt_finalize_executable(COSMETIC_MANAGEMENT)
 
-# Copy Data cạnh .exe
-add_custom_command(TARGET LSNX POST_BUILD
+# Copy Data cạnh .exe (đổi target name ở đây)
+add_custom_command(TARGET COSMETIC_MANAGEMENT POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
           "${CMAKE_SOURCE_DIR}/Data"
-          "$<TARGET_FILE_DIR:LSNX>/Data")
+          "$<TARGET_FILE_DIR:COSMETIC_MANAGEMENT>/Data")
