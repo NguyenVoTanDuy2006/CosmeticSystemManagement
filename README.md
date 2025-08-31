@@ -1,4 +1,4 @@
-# Cosmetic Warehouse Management System (LSNX)
+# Cosmetic Warehouse Management System (CMS)
 
 A comprehensive desktop application for managing cosmetic products and trade operations in warehouse environments. Built with C++ and Qt6, this system provides a modern graphical interface for efficient inventory and trade management.
 
